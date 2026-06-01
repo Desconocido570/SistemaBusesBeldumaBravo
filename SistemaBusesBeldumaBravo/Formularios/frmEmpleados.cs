@@ -170,5 +170,10 @@ namespace SistemaBusesBeldumaBravo.Formularios
         {
             Limpiar();
         }
+
+        private void txtBuscar_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

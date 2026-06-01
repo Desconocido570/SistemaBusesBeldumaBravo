@@ -8,6 +8,7 @@ namespace SistemaBusesBeldumaBravo.Utilidades
 {
     public static class Sesion
     {
+        // Cambio para Pull Request
         public static int IdUsuario { get; set; }
 
         public static string Usuario { get; set; }
