@@ -1,6 +1,7 @@
-﻿using System.Data;
+﻿using SistemaBusesBeldumaBravo.Entidades;
+using System;
+using System.Data;
 using System.Data.SqlClient;
-using SistemaBusesBeldumaBravo.Entidades;
 
 namespace SistemaBusesBeldumaBravo.Datos
 {
@@ -56,6 +57,76 @@ namespace SistemaBusesBeldumaBravo.Datos
             }
 
             return tabla;
+        }
+
+        public Conductor BuscarPorId(int id)
+        {
+            Conductor conductor = null;
+
+            using (SqlConnection cn = conexion.ObtenerConexion())
+            {
+                string sql =
+                    "SELECT * FROM Conductores WHERE IdConductor=@Id";
+
+                SqlCommand cmd =
+                    new SqlCommand(sql, cn);
+
+                cmd.Parameters.AddWithValue("@Id", id);
+
+                cn.Open();
+
+                SqlDataReader dr = cmd.ExecuteReader();
+
+                if (dr.Read())
+                {
+                    conductor = new Conductor();
+
+                    conductor.IdConductor =
+                        Convert.ToInt32(dr["IdConductor"]);
+
+                    conductor.IdEmpleado =
+                        Convert.ToInt32(dr["IdEmpleado"]);
+
+                    conductor.Licencia =
+                        dr["Licencia"].ToString();
+
+                    conductor.TipoLicencia =
+                        dr["TipoLicencia"].ToString();
+
+                    conductor.FechaVencimiento =
+                        Convert.ToDateTime(dr["FechaVencimiento"]);
+                }
+            }
+
+            return conductor;
+        }
+
+        public bool Actualizar(Conductor conductor)
+        {
+            using (SqlConnection cn = conexion.ObtenerConexion())
+            {
+                string sql =
+                @"UPDATE Conductores
+                  SET
+                    IdEmpleado=@IdEmpleado,
+                    Licencia=@Licencia,
+                    TipoLicencia=@TipoLicencia,
+                    FechaVencimiento=@FechaVencimiento
+                  WHERE IdConductor=@IdConductor";
+
+                SqlCommand cmd =
+                    new SqlCommand(sql, cn);
+
+                cmd.Parameters.AddWithValue("@IdEmpleado", conductor.IdEmpleado);
+                cmd.Parameters.AddWithValue("@Licencia", conductor.Licencia);
+                cmd.Parameters.AddWithValue("@TipoLicencia", conductor.TipoLicencia);
+                cmd.Parameters.AddWithValue("@FechaVencimiento", conductor.FechaVencimiento);
+                cmd.Parameters.AddWithValue("@IdConductor", conductor.IdConductor);
+
+                cn.Open();
+
+                return cmd.ExecuteNonQuery() > 0;
+            }
         }
 
         public bool Eliminar(int id)

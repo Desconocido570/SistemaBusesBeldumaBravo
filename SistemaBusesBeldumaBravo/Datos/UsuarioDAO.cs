@@ -31,7 +31,7 @@ namespace SistemaBusesBeldumaBravo.Datos
 
                 cn.Open();
 
-                return cmd.ExecuteNonQuery() > 0;
+                 return cmd.ExecuteNonQuery() > 0;
             }
         }
 

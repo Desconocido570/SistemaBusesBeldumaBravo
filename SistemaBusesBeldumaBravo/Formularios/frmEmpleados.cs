@@ -14,94 +14,102 @@ namespace SistemaBusesBeldumaBravo.Formularios
 {
     public partial class frmEmpleados : Form
     {
-        private EmpleadoDAO empleadoDAO = new EmpleadoDAO();
-        private int idEmpleado = 0;
+private EmpleadoDAO empleadoDAO = new EmpleadoDAO();
+
+private int idEmpleadoSeleccionado;
         public frmEmpleados()
         {
             InitializeComponent();
-            CargarEmpleados();
 
         }
-        private void Limpiar()
-        {
-            idSeleccionado = 0;
 
+        private void CargarEmpleados()
+        {
+            dgvEmpleados.DataSource =
+                empleadoDAO.Listar();
+        }
+        private void LimpiarCampos()
+        {
             txtCedula.Clear();
             txtNombre.Clear();
             txtApellido.Clear();
             txtTelefono.Clear();
             txtCorreo.Clear();
             txtSueldo.Clear();
-            txtBuscar.Clear();
-
-            chkEstado.Checked = true;
 
             dtpFechaNacimiento.Value =
                 DateTime.Now;
 
             dtpFechaIngreso.Value =
                 DateTime.Now;
+
+            chkEstado.Checked = false;
+
+            idEmpleadoSeleccionado = 0;
         }
-        private void CargarEmpleados()
-        {
-            dgvEmpleados.DataSource = null;
-            dgvEmpleados.DataSource = empleadoDAO.Listar();
-        }
+
+
 
         private void frmEmpleados_Load(object sender, EventArgs e)
         {
+            CargarEmpleados();
 
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Empleado empleado = new Empleado();
-
-            empleado.Cedula = txtCedula.Text;
-            empleado.Nombre = txtNombre.Text;
-            empleado.Apellido = txtApellido.Text;
-
-            empleado.FechaNacimiento =
-                dtpFechaNacimiento.Value;
-
-            empleado.Telefono =
-                txtTelefono.Text;
-
-            empleado.Correo =
-                txtCorreo.Text;
-
-            empleado.FechaIngreso =
-                dtpFechaIngreso.Value;
-
-            empleado.Sueldo =
-                Convert.ToDecimal(txtSalario.Text);
-
-            empleado.Estado =
-                chkEstado.Checked;
-
-            if (empleadoDAO.Insertar(empleado))
+            try
             {
-                MessageBox.Show("Empleado registrado");
+                Empleado empleado = new Empleado();
 
-                CargarEmpleados();
+                empleado.Cedula = txtCedula.Text;
+                empleado.Nombre = txtNombre.Text;
+                empleado.Apellido = txtApellido.Text;
+                empleado.Telefono = txtTelefono.Text;
+                empleado.Correo = txtCorreo.Text;
 
-                Limpiar();
+                empleado.FechaNacimiento =
+                    dtpFechaNacimiento.Value;
+
+                empleado.FechaIngreso =
+                    dtpFechaIngreso.Value;
+
+                empleado.Sueldo =
+                    decimal.Parse(txtSueldo.Text);
+
+                empleado.Estado =
+                    chkEstado.Checked;
+
+                if (empleadoDAO.Insertar(empleado))
+                {
+                    MessageBox.Show(
+                        "Empleado guardado correctamente");
+
+                    CargarEmpleados();
+
+                    LimpiarCampos();
+                }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (idSeleccionado == 0)
+            if (idEmpleadoSeleccionado == 0)
             {
-                MessageBox.Show("Seleccione un empleado");
-
+                MessageBox.Show(
+                    "Seleccione un empleado");
                 return;
             }
 
             Empleado empleado = new Empleado();
 
             empleado.IdEmpleado =
-                idSeleccionado;
+                idEmpleadoSeleccionado;
 
             empleado.Cedula =
                 txtCedula.Text;
@@ -112,68 +120,147 @@ namespace SistemaBusesBeldumaBravo.Formularios
             empleado.Apellido =
                 txtApellido.Text;
 
-            empleado.FechaNacimiento =
-                dtpFechaNacimiento.Value;
-
             empleado.Telefono =
                 txtTelefono.Text;
 
             empleado.Correo =
                 txtCorreo.Text;
 
+            empleado.FechaNacimiento =
+                dtpFechaNacimiento.Value;
+
             empleado.FechaIngreso =
                 dtpFechaIngreso.Value;
 
             empleado.Sueldo =
-                Convert.ToDecimal(txtSalario.Text);
+                decimal.Parse(txtSueldo.Text);
 
             empleado.Estado =
                 chkEstado.Checked;
 
             if (empleadoDAO.Actualizar(empleado))
             {
-                MessageBox.Show("Empleado actualizado");
+                MessageBox.Show(
+                    "Empleado actualizado");
 
                 CargarEmpleados();
 
-                Limpiar();
+                LimpiarCampos();
             }
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            if (idSeleccionado == 0)
+            if (idEmpleadoSeleccionado == 0)
             {
                 MessageBox.Show(
                     "Seleccione un empleado");
-
                 return;
             }
 
             DialogResult r =
                 MessageBox.Show(
-                    "¿Eliminar empleado?",
+                    "¿Desea eliminar este empleado?",
                     "Confirmar",
                     MessageBoxButtons.YesNo);
 
             if (r == DialogResult.Yes)
             {
-                empleadoDAO.Eliminar(idSeleccionado);
+                if (empleadoDAO.Eliminar(txtCedula.Text))
+                {
+                    MessageBox.Show(
+                        "Empleado eliminado");
 
-                CargarEmpleados();
+                    CargarEmpleados();
 
-                Limpiar();
+                    LimpiarCampos();
+                }
             }
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
-            Limpiar();
+            LimpiarCampos();
         }
 
         private void txtBuscar_TextChanged(object sender, EventArgs e)
         {
+            if (txtBuscar.Text.Trim() == "")
+            {
+                CargarEmpleados();
+                return;
+            }
 
+            Empleado empleado =
+                empleadoDAO.BuscarPorCedula(
+                    txtBuscar.Text.Trim());
+
+            if (empleado != null)
+            {
+                txtCedula.Text = empleado.Cedula;
+                txtNombre.Text = empleado.Nombre;
+                txtApellido.Text = empleado.Apellido;
+                txtTelefono.Text = empleado.Telefono;
+                txtCorreo.Text = empleado.Correo;
+
+                dtpFechaNacimiento.Value =
+                    empleado.FechaNacimiento;
+
+                dtpFechaIngreso.Value =
+                    empleado.FechaIngreso;
+
+                txtSueldo.Text =
+                    empleado.Sueldo.ToString();
+
+                chkEstado.Checked =
+                    empleado.Estado;
+
+                idEmpleadoSeleccionado =
+                    empleado.IdEmpleado;
+            }
+        }
+
+        private void dgvEmpleados_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0)
+                return;
+
+            DataGridViewRow fila =
+                dgvEmpleados.Rows[e.RowIndex];
+
+            idEmpleadoSeleccionado =
+                Convert.ToInt32(
+                fila.Cells["IdEmpleado"].Value);
+
+            txtCedula.Text =
+                fila.Cells["Cedula"].Value.ToString();
+
+            txtNombre.Text =
+                fila.Cells["Nombre"].Value.ToString();
+
+            txtApellido.Text =
+                fila.Cells["Apellido"].Value.ToString();
+
+            txtTelefono.Text =
+                fila.Cells["Telefono"].Value.ToString();
+
+            txtCorreo.Text =
+                fila.Cells["Correo"].Value.ToString();
+
+            dtpFechaNacimiento.Value =
+                Convert.ToDateTime(
+                fila.Cells["FechaNacimiento"].Value);
+
+            dtpFechaIngreso.Value =
+                Convert.ToDateTime(
+                fila.Cells["FechaIngreso"].Value);
+
+            txtSueldo.Text =
+                fila.Cells["Sueldo"].Value.ToString();
+
+            chkEstado.Checked =
+                Convert.ToBoolean(
+                fila.Cells["Estado"].Value);
         }
     }
 }

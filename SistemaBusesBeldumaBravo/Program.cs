@@ -16,7 +16,7 @@ namespace SistemaBusesBeldumaBravo
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Formularios.frmPrincipal());
+            Application.Run(new Formularios.frmLogin());
         }
     }
 }

@@ -102,7 +102,6 @@
             this.cmbRol.FormattingEnabled = true;
             this.cmbRol.Items.AddRange(new object[] {
             "Administrador",
-            "",
             "Empleado"});
             this.cmbRol.Location = new System.Drawing.Point(112, 170);
             this.cmbRol.Name = "cmbRol";

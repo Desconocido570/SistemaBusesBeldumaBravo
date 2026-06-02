@@ -18,7 +18,6 @@ namespace SistemaBusesBeldumaBravo.Formularios
         private int idUsuarioSeleccionado = 0;
         public frmUsuarios()
         {
-            CargarUsuarios();
 
             InitializeComponent();
         }
@@ -141,6 +140,7 @@ namespace SistemaBusesBeldumaBravo.Formularios
 
         private void frmUsuarios_Load(object sender, EventArgs e)
         {
+            CargarUsuarios();
 
         }
     }
