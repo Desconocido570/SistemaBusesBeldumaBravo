@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SistemaBusesBeldumaBravo.Datos
 {
-    internal class RolDAO
+    public class RolDAO
     {
     }
 }

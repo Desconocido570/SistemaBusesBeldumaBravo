@@ -41,6 +41,10 @@ namespace SistemaBusesBeldumaBravo.Formularios
 
             usuario.NombreUsuario = txtUsuario.Text;
             usuario.Clave = txtClave.Text;
+
+            usuario.IdRol =
+                Convert.ToInt32(cmbRol.SelectedValue);
+
             usuario.Estado = chkEstado.Checked;
 
             if (usuarioDAO.Insertar(usuario))
@@ -50,10 +54,6 @@ namespace SistemaBusesBeldumaBravo.Formularios
                 CargarUsuarios();
 
                 Limpiar();
-            }
-            else
-            {
-                MessageBox.Show("Error al guardar");
             }
         }
 
@@ -141,6 +141,11 @@ namespace SistemaBusesBeldumaBravo.Formularios
         private void frmUsuarios_Load(object sender, EventArgs e)
         {
             CargarUsuarios();
+
+        }
+
+        private void cmbRol_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
         }
     }

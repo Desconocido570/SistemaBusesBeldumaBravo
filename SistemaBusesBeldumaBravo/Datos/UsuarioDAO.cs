@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace SistemaBusesBeldumaBravo.Datos
 {
@@ -26,6 +27,7 @@ namespace SistemaBusesBeldumaBravo.Datos
 
                 cmd.Parameters.AddWithValue("@Usuario", usuario.NombreUsuario);
                 cmd.Parameters.AddWithValue("@Clave", usuario.Clave);
+                MessageBox.Show(usuario.IdRol.ToString());
                 cmd.Parameters.AddWithValue("@IdRol", usuario.IdRol);
                 cmd.Parameters.AddWithValue("@Estado", usuario.Estado);
 
