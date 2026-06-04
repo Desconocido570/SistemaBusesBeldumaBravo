@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace SistemaBusesBeldumaBravo.Entidades
 {
 
-        public class Rol
+        public class Rol    
         {
             public int IdRol { get; set; }
 
