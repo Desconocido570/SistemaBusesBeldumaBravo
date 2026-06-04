@@ -102,12 +102,12 @@
             this.cmbRol.FormattingEnabled = true;
             this.cmbRol.Items.AddRange(new object[] {
             "Administrador",
-            "",
             "Empleado"});
             this.cmbRol.Location = new System.Drawing.Point(112, 170);
             this.cmbRol.Name = "cmbRol";
             this.cmbRol.Size = new System.Drawing.Size(100, 21);
             this.cmbRol.TabIndex = 15;
+            this.cmbRol.SelectedIndexChanged += new System.EventHandler(this.cmbRol_SelectedIndexChanged);
             // 
             // chkEstado
             // 

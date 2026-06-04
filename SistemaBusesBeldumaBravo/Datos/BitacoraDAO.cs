@@ -1,5 +1,6 @@
-﻿using System.Data.SqlClient;
-using SistemaBusesBeldumaBravo.Entidades;
+﻿using SistemaBusesBeldumaBravo.Entidades;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace SistemaBusesBeldumaBravo.Datos
 {
@@ -7,7 +8,7 @@ namespace SistemaBusesBeldumaBravo.Datos
     {
         private ConexionBD conexion = new ConexionBD();
 
-        public void Registrar(Bitacora bitacora)
+        public void Insertar(Bitacora bitacora)
         {
             using (SqlConnection cn = conexion.ObtenerConexion())
             {
@@ -52,5 +53,22 @@ namespace SistemaBusesBeldumaBravo.Datos
                 cmd.ExecuteNonQuery();
             }
         }
+     
+            public DataTable Listar()
+            {
+                DataTable tabla = new DataTable();
+
+                using (SqlConnection cn = conexion.ObtenerConexion())
+                {
+                    SqlDataAdapter da =
+                        new SqlDataAdapter(
+                            "SELECT * FROM Bitacora ORDER BY Fecha DESC",
+                            cn);
+
+                    da.Fill(tabla);
+                }
+
+                return tabla;
+            }
+        }
     }
-}

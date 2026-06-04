@@ -40,7 +40,7 @@
             this.txtApellido = new System.Windows.Forms.TextBox();
             this.txtTelefono = new System.Windows.Forms.TextBox();
             this.txtCorreo = new System.Windows.Forms.TextBox();
-            this.txtSalario = new System.Windows.Forms.TextBox();
+            this.txtSueldo = new System.Windows.Forms.TextBox();
             this.dtpFechaIngreso = new System.Windows.Forms.DateTimePicker();
             this.dgvEmpleados = new System.Windows.Forms.DataGridView();
             this.button5 = new System.Windows.Forms.Button();
@@ -98,9 +98,9 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(66, 280);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(42, 13);
+            this.label6.Size = new System.Drawing.Size(43, 13);
             this.label6.TabIndex = 5;
-            this.label6.Text = "Salario:\n";
+            this.label6.Text = "Sueldo:";
             // 
             // label7
             // 
@@ -155,12 +155,12 @@
             this.txtCorreo.Size = new System.Drawing.Size(125, 20);
             this.txtCorreo.TabIndex = 12;
             // 
-            // txtSalario
+            // txtSueldo
             // 
-            this.txtSalario.Location = new System.Drawing.Point(120, 272);
-            this.txtSalario.Name = "txtSalario";
-            this.txtSalario.Size = new System.Drawing.Size(100, 20);
-            this.txtSalario.TabIndex = 14;
+            this.txtSueldo.Location = new System.Drawing.Point(120, 272);
+            this.txtSueldo.Name = "txtSueldo";
+            this.txtSueldo.Size = new System.Drawing.Size(100, 20);
+            this.txtSueldo.TabIndex = 14;
             // 
             // dtpFechaIngreso
             // 
@@ -177,13 +177,14 @@
             this.dgvEmpleados.Location = new System.Drawing.Point(269, 70);
             this.dgvEmpleados.Name = "dgvEmpleados";
             this.dgvEmpleados.ReadOnly = true;
-            this.dgvEmpleados.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullColumnSelect;
-            this.dgvEmpleados.Size = new System.Drawing.Size(519, 354);
+            this.dgvEmpleados.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvEmpleados.Size = new System.Drawing.Size(636, 354);
             this.dgvEmpleados.TabIndex = 16;
+            this.dgvEmpleados.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvEmpleados_CellContentClick);
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(152, 371);
+            this.button5.Location = new System.Drawing.Point(151, 386);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(93, 53);
             this.button5.TabIndex = 27;
@@ -193,7 +194,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(50, 371);
+            this.button3.Location = new System.Drawing.Point(49, 386);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(96, 53);
             this.button3.TabIndex = 25;
@@ -203,7 +204,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(152, 318);
+            this.button2.Location = new System.Drawing.Point(151, 333);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(93, 47);
             this.button2.TabIndex = 24;
@@ -213,7 +214,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(50, 318);
+            this.button1.Location = new System.Drawing.Point(49, 333);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(96, 47);
             this.button1.TabIndex = 23;
@@ -227,6 +228,7 @@
             this.txtBuscar.Name = "txtBuscar";
             this.txtBuscar.Size = new System.Drawing.Size(451, 20);
             this.txtBuscar.TabIndex = 28;
+            this.txtBuscar.TextChanged += new System.EventHandler(this.txtBuscar_TextChanged);
             // 
             // label5
             // 
@@ -287,7 +289,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 488);
+            this.ClientSize = new System.Drawing.Size(917, 488);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.chkEstado);
@@ -301,7 +303,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.dgvEmpleados);
             this.Controls.Add(this.dtpFechaIngreso);
-            this.Controls.Add(this.txtSalario);
+            this.Controls.Add(this.txtSueldo);
             this.Controls.Add(this.txtCorreo);
             this.Controls.Add(this.txtTelefono);
             this.Controls.Add(this.txtApellido);
@@ -337,7 +339,7 @@
         private System.Windows.Forms.TextBox txtApellido;
         private System.Windows.Forms.TextBox txtTelefono;
         private System.Windows.Forms.TextBox txtCorreo;
-        private System.Windows.Forms.TextBox txtSalario;
+        private System.Windows.Forms.TextBox txtSueldo;
         private System.Windows.Forms.DateTimePicker dtpFechaIngreso;
         private System.Windows.Forms.DataGridView dgvEmpleados;
         private System.Windows.Forms.Button button5;
